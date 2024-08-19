@@ -8,7 +8,6 @@ import flixel.FlxGame;
 import flixel.FlxState;
 import openfl.Assets;
 import openfl.Lib;
-import backend.SpecsState;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
@@ -17,6 +16,7 @@ import lime.app.Application;
 
 #if desktop
 import Discord.DiscordClient;
+import backend.SpecsState;
 #end
 
 //crash handler stuff
