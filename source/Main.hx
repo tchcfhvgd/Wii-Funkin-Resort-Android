@@ -30,6 +30,11 @@ import sys.io.Process;
 import haxe.Http;
 #end
 
+#if android
+import android.content.Context;
+import android.os.Build;
+#end
+
 using StringTools;
 using flixel.util.FlxSpriteUtil;
 
@@ -67,6 +72,11 @@ class Main extends Sprite
 		//FlxAssets.FONT_DEBUGGER = "assets/fonts/wii.ttf";
 
 		Lib.current.addChild(new Main());
+		#if cpp
+		cpp.NativeGc.enable(true);
+		#elseif hl
+		hl.Gc.enable(true);
+		#end
 		FlxG.mouse.load(new FlxSprite().loadGraphic(Paths.image("pointer")).pixels);
 	}
 
@@ -74,6 +84,15 @@ class Main extends Sprite
 	{
 		super();
 
+		#if android
+		if (VERSION.SDK_INT > 30)
+			Sys.setCwd(Path.addTrailingSlash(Context.getObbDir()));
+		else
+			Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
+		#elseif ios
+		Sys.setCwd(System.documentsDirectory);
+		#end
+		
 		if (stage != null)
 		{
 			init();
@@ -96,22 +115,9 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
-		var stageWidth:Int = Lib.current.stage.stageWidth;
-		var stageHeight:Int = Lib.current.stage.stageHeight;
-
-		if (game.zoom == -1.0)
-		{
-			var ratioX:Float = stageWidth / game.width;
-			var ratioY:Float = stageHeight / game.height;
-			game.zoom = Math.min(ratioX, ratioY);
-			game.width = Math.ceil(stageWidth / game.zoom);
-			game.height = Math.ceil(stageHeight / game.zoom);
-		}
-	
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, game.initialState, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
-		#if !mobile
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
@@ -119,7 +125,6 @@ class Main extends Sprite
 		if(fpsVar != null) {
 			fpsVar.visible = ClientPrefs.showFPS;
 		}
-		#end
 
 		#if html5
 		FlxG.autoPause = false;
@@ -128,6 +133,10 @@ class Main extends Sprite
 		
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
+		#end
+
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
 		#end
 
 		#if desktop
@@ -172,7 +181,7 @@ class Main extends Sprite
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-		path = "./crash/" + "WFR_" + dateNow + ".txt";
+		path = "crash/" + "WFR_" + dateNow + ".txt";
 
 		for (stackItem in callStack)
 		{
@@ -188,8 +197,8 @@ class Main extends Sprite
 		errMsg = "--->|Crash Handler written by: sqirra-rng, modified by DeRealTurbo|<---\n\n" + errMsg;
 		errMsg += "\nUncaught Error: " + e.error + "\n";
 
-		if (!FileSystem.exists("./crash/"))
-			FileSystem.createDirectory("./crash/");
+		if (!FileSystem.exists("crash/"))
+			FileSystem.createDirectory("crash/");
 
 		errMsg += "\n\n" + SpecsState.toString() + "\n";
 
@@ -232,7 +241,7 @@ class Main extends Sprite
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
 		//systools.Dialogs.message("Error!", errMsg, true);
-		DiscordClient.shutdown();
+		//DiscordClient.shutdown();
 		Sys.exit(1);
 	}
 	#end
