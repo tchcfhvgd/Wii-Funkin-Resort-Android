@@ -108,6 +108,7 @@
 	<haxelib name="hscript-improved" />
 	<!--fuck you hxcpp-->
 	<haxelib name="hxcpp" version="git" />
+	<haxelib name="extension-androidtools" if= "android" />
 	<define name="hscriptPos" />
 
 	<!--In case you want to use the ui package-->
