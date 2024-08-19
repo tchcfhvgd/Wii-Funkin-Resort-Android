@@ -1,3 +1,4 @@
+#if desktop
 package backend;
 
 import openfl.system.Capabilities;
@@ -86,3 +87,4 @@ class SpecsState
         return c == " " || c == "\n" || c == "\r" || c == "\t";
     }
 }
+#end
