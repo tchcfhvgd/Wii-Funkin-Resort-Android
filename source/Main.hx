@@ -200,7 +200,7 @@ class Main extends Sprite
 		if (!FileSystem.exists("crash/"))
 			FileSystem.createDirectory("crash/");
 
-		errMsg += "\n\n" + SpecsState.toString() + "\n";
+		//errMsg += "\n\n" + SpecsState.toString() + "\n";
 
 		File.saveContent(path, errMsg + "\n");
 
