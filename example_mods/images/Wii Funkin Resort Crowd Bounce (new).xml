@@ -1,18 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="Wii Funkin Resort Crowd Bounce.png">
-	<!-- Created with Adobe Animate version 22.0.6.202 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="crowd bounce0000" x="5409" y="1774" width="2711" height="411" frameX="0" frameY="-34" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0001" x="5409" y="1347" width="2711" height="427" frameX="0" frameY="-20" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0002" x="2702" y="1347" width="2707" height="447" frameX="-4" frameY="-2" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0003" x="5418" y="449" width="2707" height="449" frameX="-4" frameY="0" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0004" x="0" y="898" width="2707" height="449" frameX="-4" frameY="0" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0005" x="2707" y="898" width="2707" height="449" frameX="-4" frameY="0" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0006" x="5414" y="898" width="2702" height="449" frameX="-9" frameY="0" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0007" x="0" y="1347" width="2702" height="449" frameX="-9" frameY="0" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0008" x="0" y="0" width="2710" height="449" frameX="-1" frameY="0" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0009" x="2710" y="0" width="2710" height="449" frameX="-1" frameY="0" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0010" x="5420" y="0" width="2709" height="449" frameX="-2" frameY="0" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0011" x="0" y="449" width="2709" height="449" frameX="-2" frameY="0" frameWidth="2711" frameHeight="449"/>
-	<SubTexture name="crowd bounce0012" x="2709" y="449" width="2709" height="449" frameX="-2" frameY="0" frameWidth="2711" frameHeight="449"/>
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Wii Funkin Resort Crowd Bounce (new).png">
+	<!-- Created using the Spritesheet and XML generator -->
+	<!-- https://uncertainprod.github.io/FNF-Spritesheet-XML-generator-Web -->
+	<SubTexture name="crowd bounce0000" x="0" y="2825" width="2702" height="370" frameX="2" frameY="-43" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0001" x="2697" y="2424" width="2702" height="384" frameX="2" frameY="-30" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0002" x="0" y="2424" width="2697" height="401" frameX="-2" frameY="-13" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0003" x="0" y="2020" width="2697" height="404" frameX="-2" frameY="-11" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0004" x="0" y="1616" width="2698" height="404" frameX="-2" frameY="-11" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0005" x="0" y="1616" width="2698" height="404" frameX="-2" frameY="-11" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0006" x="2713" y="0" width="2693" height="404" frameX="-7" frameY="-11" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0007" x="2713" y="404" width="2692" height="403" frameX="-7" frameY="-11" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0008" x="0" y="404" width="2701" height="404" frameX="1" frameY="-11" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0009" x="0" y="404" width="2701" height="404" frameX="1" frameY="-11" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0010" x="0" y="808" width="2700" height="404" frameX="0" frameY="-11" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0011" x="0" y="1212" width="2699" height="404" frameX="0" frameY="-11" frameWidth="2711" frameHeight="449"/>
+	<SubTexture name="crowd bounce0012" x="0" y="0" width="2713" height="404" frameX="0" frameY="-11" frameWidth="2711" frameHeight="449"/>
 </TextureAtlas>
