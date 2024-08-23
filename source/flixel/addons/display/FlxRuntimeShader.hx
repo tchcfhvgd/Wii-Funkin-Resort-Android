@@ -113,21 +113,21 @@ class FlxRuntimeShader extends FlxShader
 	;
 	#end
 	static final BASE_FRAGMENT_BODY:String = "
-		vec4 color = texture2D (bitmap, openfl_TextureCoordv);
+		vec4 color = texture2D(bitmap, openfl_TextureCoordv);
 		if (color.a == 0.0) {
-			gl_FragColor = vec4 (0.0, 0.0, 0.0, 0.0);
+			gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
 		} else if (openfl_HasColorTransform) {
-			color = vec4 (color.rgb / color.a, color.a);
+			color = vec4(color.rgb / color.a, color.a);
 			mat4 colorMultiplier = mat4 (0);
 			colorMultiplier[0][0] = openfl_ColorMultiplierv.x;
 			colorMultiplier[1][1] = openfl_ColorMultiplierv.y;
 			colorMultiplier[2][2] = openfl_ColorMultiplierv.z;
 			colorMultiplier[3][3] = 1.0; // openfl_ColorMultiplierv.w;
-			color = clamp (openfl_ColorOffsetv + (color * colorMultiplier), 0.0, 1.0);
+			color = clamp(openfl_ColorOffsetv + (color * colorMultiplier), 0.0, 1.0);
 			if (color.a > 0.0) {
-				gl_FragColor = vec4 (color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);
+				gl_FragColor = vec4(color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);
 			} else {
-				gl_FragColor = vec4 (0.0, 0.0, 0.0, 0.0);
+				gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
 			}
 		} else {
 			gl_FragColor = color * openfl_Alphav;
@@ -188,7 +188,7 @@ class FlxRuntimeShader extends FlxShader
 	static final PRAGMA_PRECISION:String = "#pragma precision";
 	static final PRAGMA_VERSION:String = "#pragma version";
 
-	private var _glslVersion:Int;
+	private var _glslesVersion:Int;
 
 	/**
 	 * Constructs a GLSL shader.
@@ -196,10 +196,9 @@ class FlxRuntimeShader extends FlxShader
 	 * @param vertexSource The vertex shader source.
 	 * Note you also need to `initialize()` the shader MANUALLY! It can't be done automatically.
 	 */
-	public function new(fragmentSource:String = null, vertexSource:String = null, glslVersion:Int = 120):Void
+	public function new(fragmentSource:String = null, vertexSource:String = null, glslesVersion:Int = 100):Void
 	{
-		if (!ClientPrefs.shaders) return;
-		_glslVersion = glslVersion;
+    _glslesVersion = glslesVersion;
 
 		if (fragmentSource == null)
 		{
@@ -292,7 +291,7 @@ class FlxRuntimeShader extends FlxShader
 			var gl = __context.gl;
 
 			var precisionHeaders = buildPrecisionHeaders();
-			var versionHeader = '#version ${_glslVersion}\n';
+			var versionHeader = '#version ${_glslesVersion}\n';
 
 			var vertex = StringTools.replace(glVertexSource, PRAGMA_PRECISION, precisionHeaders);
 			vertex = StringTools.replace(vertex, PRAGMA_VERSION, versionHeader);
@@ -526,7 +525,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function setFloat(name:String, value:Float):Void
 	{
-		if(!ClientPrefs.shaders) return;
 		var prop:ShaderParameter<Float> = Reflect.field(this.data, name);
 		@:privateAccess
 		if (prop == null)
@@ -538,33 +536,12 @@ class FlxRuntimeShader extends FlxShader
 	}
 
 	/**
-	 * Tweens a shader to a value
-	 * @param property The property to tween
-	 * @param to The value of the property to end up at
-	 * @param duration How long it will take
-	 * @param ease What ease should be used
-	 * @param startDelay The delay to start
-	 * @param onComplete When to do when the tween is done
-	*/
-	public function tween(property:String, to:Float, duration:Float = 1, ease:EaseFunction, ?startDelay:Float = 0.0, ?onComplete:Dynamic){
-		PlayState.instance.tweenManager.num(getFloat(property), to, duration,  {onUpdate: function(tween:FlxTween){
-			var ting = FlxMath.lerp(getFloat(property),to, ease(tween.percent));
-			setFloat(property, ting);
-		},ease: ease, onComplete: function(twn) {
-			setFloat(property, to); //make sure
-			if (onComplete != null)
-				onComplete();
-		},startDelay: startDelay,}, (value)->{setFloat(property, value);});
-	}
-
-	/**
 	 * Modify a float array parameter of the shader.
 	 * @param name The name of the parameter to modify.
 	 * @param value The new value to use.
 	 */
 	public function setFloatArray(name:String, value:Array<Float>):Void
 	{
-		if(!ClientPrefs.shaders) return;
 		var prop:ShaderParameter<Float> = Reflect.field(this.data, name);
 		if (prop == null)
 		{
@@ -581,7 +558,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function setInt(name:String, value:Int):Void
 	{
-		if(!ClientPrefs.shaders) return;
 		var prop:ShaderParameter<Int> = Reflect.field(this.data, name);
 		if (prop == null)
 		{
@@ -598,7 +574,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function setIntArray(name:String, value:Array<Int>):Void
 	{
-		if(!ClientPrefs.shaders) return;
 		var prop:ShaderParameter<Int> = Reflect.field(this.data, name);
 		if (prop == null)
 		{
@@ -615,7 +590,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function setBool(name:String, value:Bool):Void
 	{
-		if(!ClientPrefs.shaders) return;
 		var prop:ShaderParameter<Bool> = Reflect.field(this.data, name);
 		if (prop == null)
 		{
@@ -632,7 +606,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function setBoolArray(name:String, value:Array<Bool>):Void
 	{
-		if(!ClientPrefs.shaders) return;
 		var prop:ShaderParameter<Bool> = Reflect.field(this.data, name);
 		if (prop == null)
 		{
@@ -649,7 +622,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function setSampler2D(name:String, value:BitmapData)
 	{
-		if(!ClientPrefs.shaders) return;
 		var prop:ShaderInput<BitmapData> = Reflect.field(this.data, name);
 		if(prop == null)
 		{
@@ -665,7 +637,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function getFloat(name:String):Null<Float>
 	{
-		if(!ClientPrefs.shaders) return null;
 		var prop:ShaderParameter<Float> = Reflect.field(this.data, name);
 		if (prop == null || prop.value.length == 0)
 		{
@@ -681,7 +652,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function getFloatArray(name:String):Null<Array<Float>>
 	{
-		if(!ClientPrefs.shaders) return null;
 		var prop:ShaderParameter<Float> = Reflect.field(this.data, name);
 		if (prop == null)
 		{
@@ -697,7 +667,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function getInt(name:String):Null<Int>
 	{
-		if(!ClientPrefs.shaders) return null;
 		var prop:ShaderParameter<Int> = Reflect.field(this.data, name);
 		if (prop == null || prop.value.length == 0)
 		{
@@ -713,7 +682,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function getIntArray(name:String):Null<Array<Int>>
 	{
-		if(!ClientPrefs.shaders) return null;
 		var prop:ShaderParameter<Int> = Reflect.field(this.data, name);
 		if (prop == null)
 		{
@@ -729,7 +697,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function getBool(name:String):Null<Bool>
 	{
-		if(!ClientPrefs.shaders) return null;
 		var prop:ShaderParameter<Bool> = Reflect.field(this.data, name);
 		if (prop == null || prop.value.length == 0)
 		{
@@ -745,7 +712,6 @@ class FlxRuntimeShader extends FlxShader
 	 */
 	public function getBoolArray(name:String):Null<Array<Bool>>
 	{
-		if(!ClientPrefs.shaders) return null;
 		var prop:ShaderParameter<Bool> = Reflect.field(this.data, name);
 		if (prop == null)
 		{
